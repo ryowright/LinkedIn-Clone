@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: white;
+  width: 100vw;
+  min-height: 50px;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  width: 60vw;
+  justify-content: space-between;
+}
+
+.search-container {
+  padding: 10px;
+}
+
+.icons-container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px 0;
+}
+
+.icon-unselected {
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.icon-selected {
+  margin: 0 10px;
+  cursor: pointer;
+  border-bottom: 2px solid black;
+}
+
+/* .icon-descriptor {
+  margin: 0;
+  font: 12px sans-serif;
+} */
