@@ -19,7 +19,7 @@ const theme = createTheme({
       main: grey[500]
     },
     secondary: {
-      main: grey[900]
+      main: grey[50]
     }
   },
   typography: {
@@ -35,7 +35,7 @@ function IconGroup({Icon, descriptor, selected=false, setSelected, number}) {
   return (
     <ThemeProvider theme={theme}>
       {
-        selected == number ?
+        selected === number ?
         <div onClick={() => setSelected(number)} className="icon-selected" onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
           <IconButton disableRipple color="secondary">
             <Icon fontSize="medium" />
@@ -63,6 +63,8 @@ function Navbar() {
         <div className="nav-container">
           <div className="search-container">
             <TextField
+            sx={{backgroundColor: "#38434f"}}
+            size="small"
             placeholder="Search"
             InputProps={{
               startAdornment: (
