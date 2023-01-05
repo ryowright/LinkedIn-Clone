@@ -25,7 +25,7 @@ export default function Profile() {
             <h1 id="name">{name}</h1>
             <p id="headline">{headline}</p>
           </div>
-          <Divider sx={{backgroundColor: "#b0b0b0"}} />
+          <Divider sx={{backgroundColor: "#424242"}} />
           <div className='entity-section'>
             <div className='entity-container'>
               <a style={{textDecoration: 'none'}} href='/'>
@@ -53,7 +53,7 @@ export default function Profile() {
               </a>
             </div>
           </div>
-          <Divider sx={{backgroundColor: "#b0b0b0"}} />
+          <Divider sx={{backgroundColor: "#424242"}} />
           <div className='entity-container' style={{padding: "12px"}}>
             <a style={{textDecoration: 'none'}} href='/'>
               <div className='entity'>
@@ -64,7 +64,7 @@ export default function Profile() {
               </div>
             </a>
           </div>
-          <Divider sx={{backgroundColor: "#b0b0b0"}} />
+          <Divider sx={{backgroundColor: "#424242"}} />
           <div id='my-items-container'>
             <a style={{textDecoration: 'none'}} href='/'>
               <div id='my-items'>

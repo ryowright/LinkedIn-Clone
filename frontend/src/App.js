@@ -1,8 +1,11 @@
 import Home from './home/home';
-import ErrorPage from "./error/errorpage";
+import MyNetwork from './network/network';
+import Jobs from './jobs/jobs';
+import Messaging from './messaging/messaging';
+import Notifications from './notifications/notifications';
 import {
-  createBrowserRouter,
-  RouterProvider,
+  Route,
+  Routes
 } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './navbar/navbar';
@@ -16,23 +19,18 @@ const theme = createTheme({
   },
 });
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />
-  },
-  {
-    
-  }
-])
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <Navbar />
-        <RouterProvider router={router}/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="mynetwork" element={<MyNetwork />} />
+          <Route path="jobs" element={<Jobs />} />
+          <Route path="messaging" element={<Messaging />} />
+          <Route path="notifications" element={<Notifications />} />
+        </Routes>
       </div>
     </ThemeProvider>
   );

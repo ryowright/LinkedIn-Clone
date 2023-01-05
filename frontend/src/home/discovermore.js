@@ -26,7 +26,7 @@ export default function DiscoverMore() {
               <p>Followed Hashtags</p>
             </a>
           </div>
-          <Divider sx={{backgroundColor: "#b0b0b0"}} />
+          <Divider sx={{backgroundColor: "#424242"}} />
           <div id='discover-more-container'>
             <a href='/'>
               <div id='discover-more'>
