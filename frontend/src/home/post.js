@@ -1,6 +1,10 @@
 import React from "react";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography, useMediaQuery, Divider } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import CachedIcon from '@mui/icons-material/Cached';
+import SendIcon from '@mui/icons-material/Send';
 import profilePic from './profile.png';
 
 const data = {
@@ -29,12 +33,28 @@ const FollowButton = () => {
       '&:hover':{backgroundColor:'rgba(112,181,249, 0.2)'}
     }}>
       <AddIcon sx={{fill:'#70b5f9'}} />
-      <Typography fontWeight={600} sx={{color:'#70b5f9'}}>Follow</Typography>
+      <Typography fontWeight={600} fontSize='16px' sx={{color:'#70b5f9'}}>Follow</Typography>
+    </Grid>
+  )
+}
+
+const PostBottomButton = ({text, ButtonIcon}) => {
+  return (
+    <Grid item display='flex' 
+      sx={{'&:hover':{backgroundColor:'#424242'}, cursor:'pointer', borderRadius:'5px'}}
+      padding='10px 8px' flex={1} justifyContent='center' alignItems='center'
+    >
+      <ButtonIcon sx={{fill:'white', marginRight:'4px'}}/>
+      <Typography sx={{color:'white'}}>{text}</Typography>
     </Grid>
   )
 }
 
 export default function Post() {
+  const matches1200 = useMediaQuery('(min-width:1200px)');
+  const matches992 = useMediaQuery('(min-width:992px');
+  const matches768 = useMediaQuery('(min-width:768px');
+
   return (
     <Grid item>
       <Box sx={{
@@ -42,15 +62,15 @@ export default function Post() {
         height: 1,
       }}>
         <Paper sx={{width: 1, borderRadius: "10px", backgroundColor: '#1d2226'}}>
-          <Grid container direction="column" padding={2}>
-            <Grid container item paddingTop={2} paddingBottom={2}>
-              <Grid container item display={'flex'} direction='row' spacing={0}>
-                <Grid container item sm={2}>
+          <Grid container direction="column" padding={'0 16px'} paddingTop='12px'>
+            <Grid container item >
+              <Grid container item display={'flex'} direction='row' flexWrap='nowrap'>
+                <Grid container item width={'fit-content'}>
                   <Grid item sx={{width: "58px", height: "58px", overflow:'hidden', borderRadius:'50%'}}>
                     <img style={{width: "58px", height: "78px"}} src={profilePic} alt="Profile Picture"/>
                   </Grid>
                 </Grid>
-                <Grid container item sm={8} direction='column'>
+                <Grid container item direction='column' marginLeft={'8px'}>
                   <Grid item display='flex'>
                     <a href='/'>
                       <Typography sx={{
@@ -66,7 +86,8 @@ export default function Post() {
                   </Grid>
                   <Grid item>
                     <Typography fontSize={'small'} sx={{color:'#b0b0b0'}}>
-                      {data.headline.length > 50 ? `${data.headline.substring(0, 50)}...` : data.headline}
+                      {matches1200 ? data.headline.substring(0, 50) : (matches992 ? data.headline.substring(0, 35) : data.headline.substring(0, 40))}
+                      {data.headline.length > 50 ? `...` : null}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -75,7 +96,7 @@ export default function Post() {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid container item sm={2}>
+                <Grid container item width={'fit-content'}>
                   <FollowButton />
                 </Grid>
               </Grid>
@@ -83,7 +104,7 @@ export default function Post() {
                   <Typography sx={{color:'white', fontSize:'small'}}>{data.postText}</Typography>
               </Grid>
             </Grid>
-            <Grid container item>
+            <Grid container item padding='8px 0'>
               <Grid item sm={6} display='flex' justifyContent='flex-start'>
                 <Typography fontSize={'small'} sx={{color:'#b0b0b0', '&:hover': {color:'#70b5f9', textDecoration:'underline'}, cursor:'pointer'}}>{data.numReactions} reactions</Typography>
               </Grid>
@@ -93,6 +114,13 @@ export default function Post() {
                   {data.numComments} comments
                 </Typography>
               </Grid>
+            </Grid>
+            <Divider sx={{backgroundColor: "#424242"}} />
+            <Grid container padding='4px 0' justifyContent='space-between'>
+              <PostBottomButton text='Like' ButtonIcon={ThumbUpOutlinedIcon}/>
+              <PostBottomButton text='Comment' ButtonIcon={CommentOutlinedIcon}/>
+              <PostBottomButton text='Repost' ButtonIcon={CachedIcon}/>
+              <PostBottomButton text='Send' ButtonIcon={SendIcon}/>
             </Grid>
           </Grid>
         </Paper>

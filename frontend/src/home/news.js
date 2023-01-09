@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography, useMediaQuery } from "@mui/material";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -7,21 +7,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const Headline = ({title="Headline", time="6h", numReaders=5000, link=""}) => {
   return (
     <a href={link} style={{height: '52px'}}>
-      <Grid container paddingLeft={2} direction='row' sx={{'&:hover': {backgroundColor:'#424242'}}}>
-        <Grid item lg={1}>
+      <Grid container direction='column' sx={{'&:hover': {backgroundColor:'#424242'}}}>
+        <Grid item display='flex'>
+          <span style={{marginLeft:'14px', marginRight:'12px', fontWeight:'600px', color:'white'}}>&#x2022;</span>
           <Typography fontWeight={600} sx={{
             color:'white'
-          }}>&#x2022;</Typography>
+          }}>{title}</Typography>
         </Grid>
-        <Grid item container direction='column' lg={11}>
-          <Grid item display="flex">
-            <Typography fontWeight={600} sx={{
-              color:"white"
-            }}>{title}</Typography>
-          </Grid>
-          <Grid item container direction='row'>
-            <Typography sx={{color: "#b0b0b0"}}>{time} ago &#x2022; {numReaders} readers</Typography>
-          </Grid>
+        <Grid item container paddingLeft='32px' paddingRight='12px'>
+          <Typography sx={{color: "#b0b0b0"}}>{time} ago &#x2022; {numReaders} readers</Typography>
         </Grid>
       </Grid>
     </a>

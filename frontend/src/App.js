@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './navbar/navbar';
+import SignInPage from './authentication/signin';
 
 const theme = createTheme({
   typography: {
@@ -31,6 +32,7 @@ function App() {
           <Route path="messaging" element={<Messaging />} />
           <Route path="notifications" element={<Notifications />} />
         </Routes>
+        {/* <SignInPage /> */}
       </div>
     </ThemeProvider>
   );
