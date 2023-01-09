@@ -10,6 +10,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './navbar/navbar';
 import SignInPage from './authentication/signin';
+import SignUpPage from './authentication/signup';
 
 const theme = createTheme({
   typography: {
@@ -33,6 +34,7 @@ function App() {
           <Route path="notifications" element={<Notifications />} />
         </Routes>
         {/* <SignInPage /> */}
+        {/* <SignUpPage /> */}
       </div>
     </ThemeProvider>
   );

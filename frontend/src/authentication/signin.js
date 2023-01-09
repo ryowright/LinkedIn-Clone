@@ -35,7 +35,6 @@ const SignInNavBar = () => {
 export default function SignInPage() {
   return (
     <Grid container sx={{width:'100vw', height:'100vh'}}>
-
       <Grid container sx={{backgroundColor:'white'}}
         direction='column' alignItems='center'
       >
