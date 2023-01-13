@@ -1,0 +1,14 @@
+services:
+  db:
+    image: "postgres"
+    stdin_open: true
+    tty: true
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=linkedinclonedb
+    ports:
+      # Note: make sure no process is currently occupying port 5432 on host
+      - "5432:5432"
+    volumes:
+      - "./postgres-data:/var/lib/postgresql/data"
