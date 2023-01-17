@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const User = require('./User');
+const Comment = require('./Comment');
+const LikedPosts = require('./LikedPosts');
 
 const Post = sequelize.define('Post', {
   id: {
@@ -8,23 +10,16 @@ const Post = sequelize.define('Post', {
     autoIncrement: true,
     primaryKey: true,
   },
-  // connectionDegree: {
-
-  // },
   postText: {
-
+    type: DataTypes.TEXT,
+    allowNull: false,
   },
-  comments: {
-
-  },
-  numReactions: {
-
-  },
-  timestamp: {
-
-  },
+}, {
+  timestamps: true
 })
 
 Post.belongsTo(User);
+Post.hasMany(Comment);
+Post.belongsToMany(User, { through: LikedPosts });
 
 module.exports = Post;

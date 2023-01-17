@@ -1,16 +1,12 @@
-const sequelize = require('./database');
 const server = require('express')();
-const schema = require('./gqlschemas/schema');
-const root = require('./gqlresolvers/resolver');
-const { graphqlHTTP } = require('express-graphql');
+const sequelize = require('./database');
+const bodyParser = require('body-parser').json();
 
 const STAGE = process.env.STAGE;
 
-server.use('/api', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
+const userRouter = require('./routes/user');
+const postRouter = require('./routes/post');
+const commentRouter = require('./routes/comment');
 
 sequelize.sync({force:true, alter:true}).then(() => {
   if (STAGE === 'dev') {
@@ -19,6 +15,10 @@ sequelize.sync({force:true, alter:true}).then(() => {
     console.log('Starting test server.')
   }
 })
+
+server.use('/api/user', bodyParser, userRouter);
+server.use('/api/post', bodyParser, postRouter);
+server.use('/api/comment', bodyParser, commentRouter);
 
 server.listen(4000, () => {
   console.log('Running a GraphQL API server at http://localhost:4000/api');
