@@ -4,7 +4,7 @@ const User = require('./User');
 const Post = require('./Post');
 const LikedComments = require('./LikedComments');
 
-const Comment = sequelize.define('Comment', {
+const Comment = sequelize.define('Comments', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,

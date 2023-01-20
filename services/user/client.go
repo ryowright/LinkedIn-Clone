@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/ryowright/userservice/user"
+	// "github.com/ryowright/user"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

@@ -9,6 +9,54 @@ message HelloResponse {
   string body = 1;
 }
 
-service HelloService {
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string firstName = 3;
+  string lastName = 4;
+}
+
+message RegisterResponse {
+  int32 userId = 1;
+  string body = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  int32 userId = 1;
+  string body = 2;
+}
+
+message LogoutRequest {
+  int32 userId = 1;
+}
+
+message LogoutResponse {
+  int32 userId = 1;
+  string body = 2;
+}
+
+message MeRequest {
+  int32 userId = 1;
+}
+
+message MeResponse {
+  int32 userId = 1;
+  string email = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string headline = 5;
+  string imagePath = 6;
+}
+
+service UserService {
   rpc SayHello(HelloRequest) returns (HelloResponse) {}
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {}
+  rpc Me(MeRequest) returns (MeResponse) {}
 }

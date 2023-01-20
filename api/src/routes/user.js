@@ -1,5 +1,6 @@
 const router = require('express').Router();
 // const sequelize = require('../database');
+const jwt = require('jsonwebtoken')
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const PROTO_PATH = "../proto/user.proto";
@@ -14,9 +15,9 @@ const options = {
 };
 
 var packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
-const helloservice = grpc.loadPackageDefinition(packageDefinition).user;
+const userservice = grpc.loadPackageDefinition(packageDefinition).user;
 
-const client = new helloservice.HelloService(
+const client = new userservice.UserService(
   "localhost:9000",
   grpc.credentials.createInsecure()
 );
@@ -35,7 +36,18 @@ router.post('/sayhello', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+  const { email, password, firstName, lastName } = req.body;
 
+  client.Register({ email, password, firstName, lastName }, (error, r) => {
+    console.log(r)
+    if (!error) {
+      // Create session token
+      const token = jwt.sign({ id: r.userid.toString() }, 'linkedinclone', { expiresIn: '1 day' })
+      
+      // Return session token and userid
+    }
+    return res.send(error)
+  })
 });
 
 router.post('/login', (req, res) => {

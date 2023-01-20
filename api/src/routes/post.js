@@ -5,7 +5,7 @@ router.post('/create', auth, (req, res) => {
 
 });
 
-router.get('/recent', auth, (req, res) => {
+router.get('/feed', auth, (req, res) => {
 
 });
 

@@ -1,5 +1,5 @@
 services:
-  db:
+  gatewaydb:
     image: "postgres"
     stdin_open: true
     tty: true
@@ -11,4 +11,30 @@ services:
       # Note: make sure no process is currently occupying port 5432 on host
       - "5432:5432"
     volumes:
-      - "./postgres-data:/var/lib/postgresql/data"
+      - "./api/postgres-data:/var/lib/postgresql/data"
+  
+  userdb:
+    image: "postgres"
+    stdin_open: true
+    tty: true
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=userdb
+    ports:
+      # Note: make sure no process is currently occupying port 5432 on host
+      - "5432:5432"
+    volumes:
+      - "./services/postgres-data:/var/lib/userdb/postgresql/data"
+
+  postcommentdb:
+    image: "mongo"
+    restart: "always"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=username
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=postcomment
+    ports:
+      - "5434:5434"
+    volumes:
+      - "./services/mongodb-data:/var/lib/postcommentdb/mongodb/data"

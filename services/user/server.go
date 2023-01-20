@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/ryowright/userservice/user"
+	"github.com/ryowright/user/user"
 	"google.golang.org/grpc"
 )
 
@@ -14,11 +14,13 @@ func main() {
 		log.Fatalf("Failed to listen on port 9000: %v", err)
 	}
 
+	user.DB.AutoMigrate(&user.User{})
+
 	s := user.Server{}
 
 	grpcServer := grpc.NewServer()
 
-	user.RegisterHelloServiceServer(grpcServer, &s)
+	user.RegisterUserServiceServer(grpcServer, &s)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve gRPC server over port 9000: %v", err)

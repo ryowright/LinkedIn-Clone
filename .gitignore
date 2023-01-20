@@ -3,6 +3,8 @@
 
 config/
 requirements/
+postgres-data/
+mongodb-data/
 
 # Logs
 logs

@@ -1,0 +1,43 @@
+syntax = "proto3";
+package comment;
+
+message Comment {
+  int32 commenterId = 1;
+  int32 commentId = 2;
+  string commentText = 3;
+}
+
+message CreateCommentRequest {
+  int32 userId = 1;
+  int32 postId = 2;
+  string commentText = 3;
+}
+
+message CreateCommentResponse {
+  int32 commentId = 1;
+  string body = 2;
+}
+
+message GetAllPostCommentsRequest {
+  int32 postId = 1;
+}
+
+message GetAllPostCommentsResponse {
+  repeated Comment comments = 1;
+  string body = 2;
+}
+
+message LikeCommentRequest {
+  int32 userId = 1;
+  int32 commentId = 2;
+}
+
+message LikeCommentResponse {
+  string body = 1;
+}
+
+service CommentService {
+  rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse) {}
+  rpc GetAllPostComments(GetAllPostCommentsRequest) returns (GetAllPostCommentsResponse) {}
+  rpc LikeComment(LikeCommentRequest) returns (LikeCommentResponse) {}
+}

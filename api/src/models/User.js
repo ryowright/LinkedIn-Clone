@@ -7,7 +7,7 @@ const LikedComments = require('./LikedComments');
 const LikedPosts = require('./LikedPosts');
 const SessionToken = require('./SessionToken');
 
-const User = sequelize.define('User', {
+const User = sequelize.define('Users', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
