@@ -8,12 +8,13 @@ const SessionToken = sequelize.define('SessionTokens', {
     autoIncrement: true,
     primaryKey: true,
   },
+  userId: {
+    type: DataTypes.INTEGER,
+  },
   sessionToken: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 })
-
-SessionToken.belongsTo(User);
 
 module.exports = SessionToken;

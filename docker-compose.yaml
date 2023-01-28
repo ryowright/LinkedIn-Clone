@@ -33,8 +33,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=username
       - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=postcomment
+      - MONGO_INITDB_DATABASE=postcommentdb
     ports:
-      - "5434:5434"
+      - "27017:27017"
     volumes:
       - "./services/mongodb-data:/var/lib/postcommentdb/mongodb/data"

@@ -53,10 +53,74 @@ message MeResponse {
   string imagePath = 6;
 }
 
+message GetUserProfileRequest {
+  int32 requestedUserId = 1;
+}
+
+message GetUserProfileResponse {
+  int32 requestedUserId = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string headline = 4;
+  string imagePath = 5;
+}
+
+// message ConnectRequest {
+//   int32 connecterId = 1;
+//   int32 connecteeId = 2;
+// }
+
+// message ConnectResponse {
+//   int32 connecterId = 1;
+//   string body = 2;
+// }
+
+// message AcceptConnectionRequest {
+//   int32 connecterId = 1;
+//   int32 connecteeId = 2;
+// }
+
+// message AcceptConnectionResponse {
+//   int32 connecteeId = 1;
+//   string body = 2;
+// }
+
+// message DeclineConnectionRequest {
+//   int32 connecterId = 1;
+//   int32 connecteeId = 2;
+// }
+
+// message DeclineConnectionResponse {
+//   int32 connecteeId = 1;
+//   string body = 2;
+// }
+
+// message MyConnectionRequestsRequest {
+//   int32 userId = 1;
+// }
+
+// message MyConnectionRequestsResponse {
+
+// }
+
+// message MyConnectionsRequest {
+//   int32 userId = 1;
+// }
+
+// message MyConnectionsResponse {
+  
+// }
+
 service UserService {
   rpc SayHello(HelloRequest) returns (HelloResponse) {}
   rpc Register(RegisterRequest) returns (RegisterResponse) {}
   rpc Login(LoginRequest) returns (LoginResponse) {}
   rpc Logout(LogoutRequest) returns (LogoutResponse) {}
   rpc Me(MeRequest) returns (MeResponse) {}
+  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse) {}
+  // rpc Connect(ConnectRequest) returns (ConnectResponse) {}
+  // rpc AcceptConnection(AcceptConnectionRequest) returns (AcceptConnectionResponse) {}
+  // rpc DeclineConnection(DeclineConnectionRequest) returns (DeclineConnectionRequest) {}
+  // rpc MyConnectionRequests(MyConnectionRequestsRequest) returns (MyConnectionRequestsResponse) {}
+  // rpc MyConnections(MyConnectionsRequest) returns (MyConnectionsResponse) {}
 }

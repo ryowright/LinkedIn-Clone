@@ -1,9 +1,9 @@
 syntax = "proto3";
 package post;
 
-message Post {
+message PostType {
   int32 posterId = 1;
-  int32 postId = 2;
+  string postId = 2;
   string postText = 3;
 }
 
@@ -13,7 +13,7 @@ message CreatePostRequest {
 }
 
 message CreatePostResponse {
-  int32 postId = 1;
+  string postId = 1;
   string body = 2;
 }
 
@@ -22,13 +22,13 @@ message GetPostFeedRequest {
 }
 
 message GetPostFeedResponse {
-  repeated Post posts = 1;
+  repeated PostType posts = 1;
   string body = 2;
 }
 
 message LikePostRequest {
   int32 userId = 1;
-  int32 postId = 2;
+  string postId = 2;
 }
 
 message LikePostResponse {

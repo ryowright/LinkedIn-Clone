@@ -10,6 +10,9 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/ryowright/commentservice/comment"
+	"github.com/ryowright/postservice/post"
 )
 
 type User struct {
@@ -20,7 +23,21 @@ type User struct {
 	Email     string `gorm:"type: VARCHAR(100) UNIQUE NOT NULL"`
 	Password  string `gorm:"type: VARCHAR NOT NULL"`
 	Headline  string `gorm:"type: VARCHAR(250) NOT NULL"`
+	Posts     []post.Post
+	Comments  []comment.Comment
 }
+
+// type UserConnectionRequests struct {
+// 	ID          int32 `gorm:type: SERIAL PRIMARY KEY"`
+// 	ConnecterId int32 `gorm:"type: NOT NULL"`
+// 	ConnecteeId int32 `gorm:"type: NOT NULL"`
+// }
+
+// type UserConnections struct {
+// 	ID      int32 `gorm:"type: SERIAL PRIMARY KEY"`
+// 	UserId1 int32 `gorm:"type: NOT NULL"`
+// 	UserId2 int32 `gorm:"type: NOT NULL"`
+// }
 
 type Server struct {
 }
@@ -100,3 +117,63 @@ func (s *Server) Me(ctx context.Context, m *MeRequest) (*MeResponse, error) {
 	return &MeResponse{UserId: user.ID, Email: user.Email, FirstName: user.FirstName,
 		LastName: user.LastName, Headline: user.Headline, ImagePath: user.ImagePath}, nil
 }
+
+func (s *Server) GetUserProfile(ctx context.Context, m *GetUserProfileRequest) (*GetUserProfileResponse, error) {
+	var requestedUserId = m.RequestedUserId
+	var user User
+
+	result := DB.Select("id", "first_name", "last_name", "headline", "image_path").Where("id = ?", requestedUserId).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &GetUserProfileResponse{RequestedUserId: user.ID, FirstName: user.FirstName, LastName: user.LastName,
+		Headline: user.Headline, ImagePath: user.ImagePath}, nil
+}
+
+// All Connections/User Network Functionalities
+// func (s *Server) Connect(ctx context.Context, m *ConnectRequest) (*ConnectResponse, error) {
+// 	var connecterId, connecteeId = m.ConnecterId, m.ConnecteeId
+
+// 	userConnectionRequest := UserConnectionRequest{ConnecterId: connecterId, ConnecteeId: connecteeId}
+
+// 	// Check that a connection request (both ways) doesn't already exist
+
+// 	result := DB.Create(&userConnectionRequest)
+// 	if result.Error != nil {
+// 		return nil, result.Error
+// 	}
+// 	return &ConnectResponse{ConnecterId: userConnectionRequest.ConnecterId, Body: "Successfully sent connection request."}, nil
+// }
+
+// func (s *Server) AcceptConnection(ctx context.Context, m *AcceptConnectionRequest) (*AcceptConnectionResponse, error) {
+// 	var connecterId, connecteeId = m.ConnecterId, m.ConnecteeId
+// 	var userConnectionRequest UserConnectionRequests
+
+// 	// Delete from connection requests table
+// 	result := DB.Where("id = ?", id).Where("connecter_id = ? AND connectee_id = ?", connecterId, connecteeId).Delete(&userConnectionRequest)
+// 	if result.Error != nil {
+// 		return nil, result.Error
+// 	}
+
+// 	userConnection := UserConnections{UserId1: connecterId, UserId2: connecteeId}
+// 	// Insert into connections table
+// 	result = DB.Create(&userConnection)
+// 	if result.Error != nil {
+// 		return nil, result.Error
+// 	}
+
+// 	return &AcceptConnectionResponse{Body: "Connection request accepted."}
+// }
+
+// func (s *Server) DeclineConnection(ctx context.Context, m *DeclineConnectionRequest) (*DeclineConnectionRequest, error) {
+
+// }
+
+// func (s *Server) MyConnectionRequests(ctx context.Context, m *MyConnectionRequestsRequest) (*MyConnectionRequestsResponse, error) {
+
+// }
+
+// func (s *Server) MyConnections(ctx context.Context, m *MyConnectionsRequest) (*MyConnectionsResponse, error) {
+
+// }
